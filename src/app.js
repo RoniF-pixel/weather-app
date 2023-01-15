@@ -34,11 +34,15 @@ function displayTemperature(response) {
   windElement.innerHTML = Math.round(response.data.wind.speed);
   let dateElement = document.querySelector("#date");
   dateElement.innerHTML = formateDate(response.data.time * 1000);
-  console.log(response.data);
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+  );
+  iconElement.setAttribute("alt", response.data.condition.description);
 }
 
 let apiKey = "10b31b054e5fb8ac59f5740et53o1d30";
-let apiUrl =
-  "https://api.shecodes.io/weather/v1/current?query=Uppsala&key=10b31b054e5fb8ac59f5740et53o1d30&units=metric";
-
+let city = "Sydney";
+let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 axios.get(apiUrl).then(displayTemperature);
