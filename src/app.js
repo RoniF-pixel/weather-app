@@ -21,6 +21,38 @@ function formateDate(timestamp) {
   return `${day} ${hours}: ${minutes}`;
 }
 
+function displayForcast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Thu", "Fri", "Sat", "Sun"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+              <div class="col-2">
+                <div class="weather-forecast-date">${day}</div>
+
+                <img
+                  src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/scattered-clouds-day.png"
+                  alt=""
+                  width="42"
+                />
+
+                <div class="weather-forecast-temperature">
+                  <span class="weather-forecast-temperature-max"> 12º </span>
+                  <span class="weather-forecast-temperature-min">6º </span>
+                </div>
+              </div>
+            `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function displayTemperature(response) {
   celsiusTemperature = response.data.temperature.current;
   let temperatureElement = document.querySelector("#temperature");
@@ -86,3 +118,4 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 search("New York");
+displayForcast();
